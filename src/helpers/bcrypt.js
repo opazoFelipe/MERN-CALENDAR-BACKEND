@@ -11,8 +11,7 @@ const encriptarPassword = (plainTextPassword) => {
 }
 
 const compararPassword = (plainTextPassword, savedPassword) => {
-    
-
+    return bcrypt.compareSync(plainTextPassword, savedPassword)
 }
 
 module.exports = {

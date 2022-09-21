@@ -1,5 +1,6 @@
 const express = require("express");
 require('dotenv').config()
+const morgan = require('morgan')
 const { dbConnection } = require('./src//database/config')
 
 // Crear el servidor de Express
@@ -15,6 +16,7 @@ app.set('port', process.env.PORT)
 app.use(express.static('public'))
 
 // Middlewares
+app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
