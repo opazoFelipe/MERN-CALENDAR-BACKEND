@@ -1,8 +1,9 @@
 // No vuelve a cargar la libreria, usa la que ya esta cargada desde el index
 const { response } = require('express')
 const bcrypt = require('bcryptjs')
-const { encriptarPassword, compararPassword } = require('../helpers/bcrypt')
 const Usuario = require('../models/Usuario')
+const { encriptarPassword, compararPassword } = require('../helpers/bcrypt')
+const { generarJWT } = require('../helpers/jwt')
 
 const crearUsuario = async (req, res = response) => {
     const { email, password } = req.body
@@ -63,12 +64,14 @@ const loginUsuario = async (req, res = response) => {
             })
         }
     
-        // TODO: Generar JWT
+        // Generar JWT
+        const token = await generarJWT(usuario.id, usuario.name)
 
         res.status(200).json({
             ok: true,
             uid: usuario.id,
             name: usuario.name,
+            token
         })
 
     } catch (error) {
