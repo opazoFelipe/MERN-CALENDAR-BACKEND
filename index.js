@@ -1,5 +1,6 @@
 const express = require("express");
 require('dotenv').config()
+const cors = require('cors')
 const morgan = require('morgan')
 const { dbConnection } = require('./src//database/config')
 
@@ -11,6 +12,9 @@ dbConnection()
 
 // Configurar el servidor
 app.set('port', process.env.PORT)
+
+// CORS
+app.use(cors())
 
 // Directorio Publico o archivos estaticos
 app.use(express.static('public'))
@@ -26,7 +30,7 @@ app.use(express.urlencoded({ extended: false }))
 // TODO: CRUD: Eventos
 
 app.use('/api/auth', require('./src/routes/auth'))
-
+app.use('/api/events', require('./src/routes/events'))
 
 // Escuchar Peticiones
 app.listen(app.get('port'), () => {
