@@ -1,5 +1,7 @@
 // No vuelve a cargar la libreria, usa la que ya esta cargada desde el index
 const { response } = require('express')
+const bcrypt = require('bcryptjs')
+const { encriptarPassword } = require('../helpers/bcrypt')
 const Usuario = require('../models/Usuario')
 
 const crearUsuario = async (req, res = response) => {
@@ -16,6 +18,9 @@ const crearUsuario = async (req, res = response) => {
         }
 
         usuario = new Usuario( req.body )
+
+        // Encriptar Contraseña
+        usuario.password = encriptarPassword(password)
 
         await usuario.save()
     
