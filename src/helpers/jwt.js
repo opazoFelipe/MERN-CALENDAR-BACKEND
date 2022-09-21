@@ -21,6 +21,11 @@ const generarJWT = (uid, name) => {
     })
 }
 
+const decodificarToken = (plainTextToken) => {    
+    return jwt.verify( plainTextToken, process.env.SECRET_JWT_SEED)
+}
+
 module.exports = {
-    generarJWT
+    generarJWT,
+    decodificarToken
 }
