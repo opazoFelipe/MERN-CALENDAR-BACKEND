@@ -23,11 +23,15 @@ const crearUsuario = async (req, res = response) => {
         usuario.password = encriptarPassword(password)
 
         await usuario.save()
+
+        // Generar JWT
+        const token = await generarJWT(usuario.id, usuario.name)
     
         res.status(201).json({
             ok: true,
             uid: usuario.id,
             name: usuario.name,
+            token
         })
 
     } catch (error) {
@@ -92,6 +96,8 @@ const revalidarToken = async (req, res = response) => {
 
     res.json({
         ok: true,
+        uid,
+        name,
         token
     })
 }
@@ -101,3 +107,5 @@ module.exports = {
     loginUsuario,
     revalidarToken
 }
+
+
