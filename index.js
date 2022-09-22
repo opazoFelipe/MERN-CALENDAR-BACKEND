@@ -12,8 +12,6 @@ dbConnection()
 // Configurar el servidor
 app.set('port', process.env.PORT)
 
-console.log(process.env.DB_CNN)
-
 // CORS
 app.use(cors())
 
